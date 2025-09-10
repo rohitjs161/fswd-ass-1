@@ -1,6 +1,7 @@
 import React from 'react';
+import clsx from 'clsx';
 
-const Logo = ({ size = 'md', className = '', showText = true }) => {
+const Logo = ({ size = 'md', className = '', animated = true, showText = true }) => {
   const sizeClasses = {
     sm: 'w-8 h-8',
     md: 'w-10 h-10',
@@ -16,42 +17,37 @@ const Logo = ({ size = 'md', className = '', showText = true }) => {
   };
 
   return (
-    <div className={`flex items-center space-x-2 ${className}`}>
-      <div className={`${sizeClasses[size]} bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg`}>
+    <div className={clsx('flex items-center space-x-3', className)}>
+      {/* Logo Icon - ChaiCode Inspired */}
+      <div className={clsx(
+        sizeClasses[size],
+        'bg-gradient-to-br from-primary-500 to-chai-500 rounded-xl flex items-center justify-center shadow-lg',
+        animated && 'animate-code-glow hover:scale-110 transition-transform duration-300'
+      )}>
         <svg
           viewBox="0 0 24 24"
-          fill="none"
-          className="w-1/2 h-1/2 text-white"
+          fill="currentColor"
+          className="w-3/5 h-3/5 text-white"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M12 2L2 7L12 12L22 7L12 2Z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="currentColor"
-          />
-          <path
-            d="M2 17L12 22L22 17"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M2 12L12 17L22 12"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
         </svg>
       </div>
+      
       {showText && (
-        <span className={`${textSizeClasses[size]} font-bold text-gray-900 dark:text-white`}>
-          EduStream
-        </span>
+        <div className="flex flex-col">
+          <span className={clsx(
+            textSizeClasses[size], 
+            'font-bold gradient-text-chai'
+          )}>
+            EduPlatform
+          </span>
+          {size !== 'sm' && (
+            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium tracking-wide">
+              Learn • Code • Grow
+            </span>
+          )}
+        </div>
       )}
     </div>
   );

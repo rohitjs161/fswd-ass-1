@@ -1,12 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
 @import "tailwindcss";
+
+/* Root variables for ChaiCode theme */
+:root {
+  --primary-color: #f97316;
+  --chai-color: #eab308;
+  --code-bg: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] {
+  --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
 
 /* Global styles for smooth theme transitions */
 * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 html {
   scroll-behavior: smooth;
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Dark mode support - Tailwind v4 should handle this automatically */
+body {
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar - ChaiCode style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #f97316, #eab308);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ea580c, #ca8a04);
+}
+
+/* Glass morphism utility classes */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ChaiCode gradient utilities */
+.gradient-chai {
+  background: linear-gradient(135deg, #f97316, #eab308);
+}
+
+.gradient-code {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+.gradient-text-chai {
+  background: linear-gradient(135deg, #f97316, #eab308);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-code {
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Interactive button styles */
+.btn-chai {
+  background: linear-gradient(to right, #f97316, #eab308);
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+.btn-chai:hover {
+  box-shadow: 0 20px 40px rgba(249, 115, 22, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-code {
+  background: linear-gradient(to right, #1e293b, #0f172a);
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+  transition: all 0.3s ease;
+}
+
+.btn-code:hover {
+  border-color: #f97316;
+}
+
+/* Focus ring - ChaiCode style */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #f97316, 0 0 0 4px rgba(249, 115, 22, 0.1);
+}
+
+/* Code block styling */
+.code-block {
+  background: #0f172a;
+  color: #f1f5f9;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  overflow-x: auto;
+}
+
+.code-block::-webkit-scrollbar {
+  height: 4px;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 2px;
+}
+
+/* Custom animations for ChaiCode feel */
+@keyframes codeGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3); 
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.5), 0 0 40px rgba(234, 179, 8, 0.3); 
+  }
+}
+
+.animate-code-glow {
+  animation: codeGlow 3s ease-in-out infinite;
+}
+
+/* Utility classes for consistent spacing */
+.section-padding {
+  padding: 80px 0;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 128px 0;
+  }
+}
+
+.container-custom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding: 0 32px;
+  }
+}
+
+/* Loading spinner */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+}
+
+.card-hover:hover {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark mode enhancements */
+.dark .glass {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass-strong {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: inherit;
+}
+
+::-moz-selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: inherit;
+}

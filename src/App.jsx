@@ -11,7 +11,7 @@ import Dashboard from './components/Dashboard';
 import CourseList from './components/CourseList';
 import CourseDetails from './components/CourseDetails';
 import CoursePlayer from './components/CoursePlayer';
-import Quiz from './components/Quiz';
+import Quiz from './components/Quiz.jsx'
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {

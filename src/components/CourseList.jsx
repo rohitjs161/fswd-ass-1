@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { mockCourses } from '../data/mockCourses';
+import { Search, Filter, BookOpen, Users, Clock, Star } from 'lucide-react';
 
 const CourseList = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,7 +25,7 @@ const CourseList = () => {
       return {
         text: 'View Details',
         link: `/course/${course.id}`,
-        style: 'px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors'
+        style: 'px-4 py-2 bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-white text-sm rounded-xl transition-all duration-200 border border-gray-700/50 hover:border-orange-500/50'
       };
     }
 
@@ -36,13 +37,13 @@ const CourseList = () => {
         return {
           text: 'Continue',
           link: `/course/${course.id}/watch`,
-          style: 'px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors'
+          style: 'px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-sm rounded-xl transition-all duration-200 shadow-lg hover:shadow-green-500/30'
         };
       } else {
         return {
           text: 'Start Learning',
           link: `/course/${course.id}/watch`,
-          style: 'px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded transition-colors'
+          style: 'px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-sm rounded-xl transition-all duration-200 shadow-lg hover:shadow-orange-500/30'
         };
       }
     }
@@ -50,119 +51,195 @@ const CourseList = () => {
     return {
       text: 'View Details',
       link: `/course/${course.id}`,
-      style: 'px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors'
+      style: 'px-4 py-2 bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-white text-sm rounded-xl transition-all duration-200 border border-gray-700/50 hover:border-orange-500/50'
     };
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Simple Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">All Courses</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Learn programming with expert instructors</p>
+    <div className="min-h-screen bg-black text-white">
+      {/* Header Section */}
+      <section className="relative bg-gradient-to-br from-black via-gray-900 to-orange-900/20 pt-24 pb-16">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-yellow-500/5 rounded-full blur-3xl"></div>
         </div>
-
-        {/* Simple Filters */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Search */}
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500"
-              placeholder="Search courses..."
-            />
-
-            {/* Category Filter */}
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-            >
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
-              ))}
-            </select>
+        
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+              Explore Our <span className="text-orange-500">Courses</span>
+            </h1>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Master new skills with our expertly crafted courses designed for modern learners
+            </p>
           </div>
-        </div>
 
-        {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredCourses.map((course) => (
-            <div
-              key={course.id}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow"
-            >
-              {/* Thumbnail */}
-              <div className="relative">
-                <img
-                  src={course.thumbnail}
-                  alt={course.title}
-                  className="w-full h-32 object-cover"
-                  loading="lazy"
+          {/* Search and Filter */}
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+              {/* Search Bar */}
+              <div className="relative flex-1">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 text-white placeholder-gray-400 transition-all duration-200 backdrop-blur-sm"
+                  placeholder="Search courses, instructors..."
                 />
-                <div className="absolute top-2 right-2">
-                  <span className="px-2 py-1 bg-white/90 text-gray-800 text-xs rounded-full">
-                    {course.category}
-                  </span>
-                </div>
-                {course.isFree && (
-                  <div className="absolute top-2 left-2">
-                    <span className="px-2 py-1 bg-green-500 text-white text-xs rounded-full">
-                      FREE
-                    </span>
-                  </div>
-                )}
               </div>
 
-              {/* Content */}
-              <div className="p-3">
-                <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-2">
-                  {course.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-xs mb-2 line-clamp-2">
-                  {course.description}
-                </p>
-                
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{course.instructor}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {course.media.filter(m => m.type === 'video').length} videos
-                  </span>
-                </div>
-
-                {/* Price and Action */}
-                <div className="flex items-center justify-between">
-                  <span className={`font-semibold text-sm ${course.isFree ? 'text-green-600' : 'text-blue-600'}`}>
-                    {course.isFree ? 'FREE' : `₹${course.priceINR.toLocaleString()}`}
-                  </span>
-                  
-                  {(() => {
-                    const buttonInfo = getCourseButtonContent(course);
-                    return (
-                      <Link
-                        to={buttonInfo.link}
-                        className={buttonInfo.style}
-                      >
-                        {buttonInfo.text}
-                      </Link>
-                    );
-                  })()}
-                </div>
+              {/* Category Filter */}
+              <div className="relative">
+                <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="pl-12 pr-8 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 text-white transition-all duration-200 backdrop-blur-sm min-w-[180px]"
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category} className="bg-gray-800">
+                      {category}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* No Results */}
-        {filteredCourses.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400">No courses found. Try adjusting your search.</p>
+            {/* Stats */}
+            <div className="flex justify-center gap-6 text-sm text-gray-400">
+              <span className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-orange-500" />
+                {filteredCourses.length} Courses
+              </span>
+              <span className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-blue-500" />
+                50k+ Students
+              </span>
+              <span className="flex items-center gap-2">
+                <Star className="w-4 h-4 text-yellow-500" />
+                4.8 Rating
+              </span>
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      </section>
+
+      {/* Courses Grid Section */}
+      <section className="py-16 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {filteredCourses.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredCourses.map((course) => (
+                <div
+                  key={course.id}
+                  className="group bg-gray-800/30 border border-gray-700/50 rounded-xl overflow-hidden hover:border-orange-500/50 hover:bg-gray-800/50 transition-all duration-300 backdrop-blur-sm hover:transform hover:scale-105"
+                >
+                  {/* Thumbnail */}
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={course.thumbnail}
+                      alt={course.title}
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    
+                    {/* Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-3 right-3">
+                      <span className="px-3 py-1 bg-black/70 backdrop-blur-sm text-gray-300 text-xs rounded-full border border-gray-600/50">
+                        {course.category}
+                      </span>
+                    </div>
+
+                    {/* Free Badge */}
+                    {course.isFree && (
+                      <div className="absolute top-3 left-3">
+                        <span className="px-3 py-1 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs rounded-full shadow-lg">
+                          FREE
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Duration */}
+                    <div className="absolute bottom-3 right-3">
+                      <span className="flex items-center gap-1 px-2 py-1 bg-black/70 backdrop-blur-sm text-gray-300 text-xs rounded-full">
+                        <Clock className="w-3 h-3" />
+                        {course.media.filter(m => m.type === 'video').length} videos
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="font-semibold text-white text-lg mb-2 line-clamp-2 group-hover:text-orange-400 transition-colors duration-200">
+                      {course.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+                      {course.description}
+                    </p>
+                    
+                    {/* Instructor */}
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                        <span className="text-white text-xs font-semibold">
+                          {course.instructor.charAt(0)}
+                        </span>
+                      </div>
+                      <span className="text-gray-400 text-sm">{course.instructor}</span>
+                    </div>
+
+                    {/* Price and Action */}
+                    <div className="flex items-center justify-between">
+                      <div className="text-left">
+                        <span className={`font-bold text-lg ${course.isFree ? 'text-green-400' : 'text-orange-400'}`}>
+                          {course.isFree ? 'FREE' : `₹${course.priceINR.toLocaleString()}`}
+                        </span>
+                        {!course.isFree && (
+                          <div className="text-xs text-gray-500">One-time payment</div>
+                        )}
+                      </div>
+                      
+                      {(() => {
+                        const buttonInfo = getCourseButtonContent(course);
+                        return (
+                          <Link
+                            to={buttonInfo.link}
+                            className={buttonInfo.style}
+                          >
+                            {buttonInfo.text}
+                          </Link>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* No Results */
+            <div className="text-center py-16">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-800/50 flex items-center justify-center">
+                <BookOpen className="w-8 h-8 text-gray-500" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-300 mb-2">No courses found</h3>
+              <p className="text-gray-500 mb-6">Try adjusting your search or filter criteria</p>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('All');
+                }}
+                className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition-colors duration-200"
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 };

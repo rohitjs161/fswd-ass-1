@@ -34,8 +34,9 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const signup = (email, password, name) => {
+  const signup = (userData) => {
     try {
+      const { email, password, name } = userData;
       // Check if user already exists
       const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
       const userExists = existingUsers.find(u => u.email === email);
@@ -68,8 +69,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = (email, password) => {
+  const login = (credentials) => {
     try {
+      const { email, password } = credentials;
       const users = JSON.parse(localStorage.getItem('users') || '[]');
       const foundUser = users.find(u => u.email === email && u.password === password);
       
